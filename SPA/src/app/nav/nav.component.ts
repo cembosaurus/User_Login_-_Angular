@@ -8,7 +8,7 @@ import { AuthService } from '../_services/auth.service';
 })
 export class NavComponent implements OnInit {
 
-  userModel: any = {};
+  userDTO: any = {};
 
   constructor(private authService: AuthService) { }
 
@@ -16,7 +16,7 @@ export class NavComponent implements OnInit {
   }
 
   login() {
-    this.authService.login(this.userModel)
+    this.authService.login(this.userDTO)
       .subscribe(
         next => {
         console.log('Login was successful');
