@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-register',
@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class RegisterComponent implements OnInit {
 
   userDTO: any = {};
+  @Output() canceFromRegister = new EventEmitter();
 
   constructor() { }
 
@@ -19,6 +20,7 @@ export class RegisterComponent implements OnInit {
   }
 
   cancel() {
+    this.canceFromRegister.emit(false);
     console.log('Cancelled...');
   }
 
