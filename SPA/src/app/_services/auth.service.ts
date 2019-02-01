@@ -23,4 +23,8 @@ export class AuthService {
       );
   }
 
+  register(userDTO: any) {
+    return this.http.post(this.baseUrl + 'register', userDTO);
+  }
+
 }
