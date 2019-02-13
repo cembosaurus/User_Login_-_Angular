@@ -1,31 +1,9 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Navbar</a>
+
+  <a *ngIf="loggedIn()" class="navbar-brand" href="#">Welcome {{userDTO.Name}}</a>
 
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Menu 1</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Menu 2</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Menu 3</a>
-      </li>
-      <li *ngIf="loggedIn()" class="nav-item">
-        <a class="nav-link" (click)="logOut()">Log Out</a>
-      </li>
-
-      <div *ngIf="loggedIn()" class="dropdown">
-        <button class="dropdown-toggle text-dark">
-          Welcome {{userDTO.Name}}
-        </button>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#"><i class="fa fa-user"></i>Edit Profile</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#"><i class="fa fa-sign-out"></i>Logout</a>
-        </div>
-      </div>
-
+      <button *ngIf="loggedIn()" class="btn btn-success my-2 my-sm-0" type="submit" (click)="logOut()">Log Out</button>
     </ul>
 
     <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inline my-2 my-lg-0" (ngSubmit)="login()">
