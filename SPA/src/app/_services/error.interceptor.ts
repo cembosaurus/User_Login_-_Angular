@@ -15,7 +15,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 if (err instanceof HttpErrorResponse) {
 
 
-                    // ... in case of UNAUTHORIZED ...
+                    // ... UNAUTHORIZED ...
                     if (err.status === 401) {
 
                         return throwError(err.statusText);
@@ -23,7 +23,15 @@ export class ErrorInterceptor implements HttpInterceptor {
                     }
 
 
-                    // ... in case of MY CUSTOM error
+                    // ... BAD REQUEST ...
+                    if (err.status === 400) {
+
+                        return throwError(err.error);
+
+                    }
+
+
+                    // ... CUSTOM ...
                     const custErrFromAPI = err.headers.get('My-Custom-Error');
 
                     if (custErrFromAPI) {
@@ -33,7 +41,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                     }
 
 
-                    // ... in case of MODELSTATE error. Modelstate error is type of 'object' ...
+                    // ... MODELSTATE error ... Modelstate error is type of 'object' ...
                     const serverError = err.error.errors;
                     let modelStateErrors = '';
 
@@ -47,10 +55,13 @@ export class ErrorInterceptor implements HttpInterceptor {
 
                             }
                         }
+
+                        return throwError(modelStateErrors || serverError);
+
                     }
 
 
-                    return throwError(modelStateErrors || serverError || 'Server Error');
+                    return throwError('Server Error');
 
                 }
             })
