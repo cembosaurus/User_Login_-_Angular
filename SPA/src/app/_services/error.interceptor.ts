@@ -24,11 +24,11 @@ export class ErrorInterceptor implements HttpInterceptor {
 
 
                     // ... BAD REQUEST ...
-                    if (err.status === 400) {
+                    //if (err.status === 400) {
 
-                        return throwError(err.error);
+                    //    return throwError(err.error);
 
-                    }
+                    //}
 
 
                     // ... CUSTOM ...
@@ -41,7 +41,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                     }
 
 
-                    // ... MODELSTATE error ... Modelstate error is type of 'object' ...
+                    // ... MODELSTATE error ... Modelstate error is type of 'object' OR 400 ...
                     const serverError = err.error.errors;
                     let modelStateErrors = '';
 
