@@ -36,7 +36,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                             if (err.status === 400) {
 
                                 // ... MODELSTATE (f.e.: empty fields) ...
-                                if (typeof err.error === 'object') {
+                                if (typeof err.error === 'object' && err.error.errors) {
 
                                     const serverError = err.error.errors;
                                     let modelStateErrors = '';
