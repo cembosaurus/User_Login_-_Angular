@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
       .subscribe(() => {
         console.log('User ' + this.userDTO.Name + ' was registered successfuly !');
       }, error => {
-        console.log(error);
+        console.error(error);
       });
   }
 

@@ -1,11 +1,15 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using API.Helpers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.Net;
 using System.Text;
 using Users.Data;
 
@@ -58,8 +62,25 @@ namespace Users
             }
             else
             {
+
+                // ... middleware to intercept exceptions ...
+                app.UseExceptionHandler(builder => {
+                    builder.Run(async httpContext => {
+
+                        httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+
+                        var err = httpContext.Features.Get<IExceptionHandlerFeature>();
+                        if(err != null)
+                        {
+                            httpContext.Response.AddMyCustomError(err.Error.Message);
+                            await httpContext.Response.WriteAsync(err.Error.Message);
+                        }
+                    });
+                });
+
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                // ... this is for https ...
+                //app.UseHsts();
             }
 
             //app.UseHttpsRedirection();

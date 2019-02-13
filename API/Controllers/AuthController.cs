@@ -47,6 +47,8 @@ namespace Users.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserToLogin user)
         {
+            //throw new Exception("... Exception from 'controller/login' ...");
+
             var userFromRepo = await _repo.Login(user.Name.ToLower(), user.Password);
 
             if(userFromRepo == null)
