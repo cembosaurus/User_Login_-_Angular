@@ -22,7 +22,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
 
                             // ... CUSTOM ...
-                            const customError = err.headers.get('Shit-Happens');
+                            const customError = err.headers.get('My-Custom-Error');
 
                             if (customError) {
 
